@@ -1,7 +1,7 @@
 import React from "react";
 import "./styles.css";
 
-const Cat = ({ name, age, activity, nameChange, buttonTextValue }) => {
+const Cat = ({ name, age, activity, nameChange }) => {
   return (
     <div className="Cat">
       <p>

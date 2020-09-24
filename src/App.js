@@ -11,7 +11,6 @@ class App extends Component {
       { name: "Big Trish", age: 10, activity: "antifascist organising" },
       { name: "Gerald", age: 14, activity: "licking my butt" },
     ],
-    // buttonTextValue: "Change my name!",
     cafeOpen: false,
   };
 
@@ -19,10 +18,6 @@ class App extends Component {
     const isOpen = this.state.cafeOpen;
     this.setState({ cafeOpen: !isOpen });
   };
-
-  // toggleButtonTitle = () => {
-  //   this.setState({ buttonTextValue: "Change my name back!" });
-  // };
 
   nameChangeHandler = () => {
     this.setState({
@@ -61,35 +56,30 @@ class App extends Component {
               age={this.state.cats[0].age}
               activity={this.state.cats[0].activity}
               nameChange={this.nameChangeHandler}
-              // buttonTextValue={this.toggleButtonTitle}
             />
             <Cat
               name={this.state.cats[1].name}
               age={this.state.cats[1].age}
               activity={this.state.cats[1].activity}
               nameChange={this.nameChangeHandler}
-              // buttonTextValue={this.toggleButtonTitle}
             />
             <Cat
               name={this.state.cats[2].name}
               age={this.state.cats[2].age}
               activity={this.state.cats[2].activity}
               nameChange={this.nameChangeHandler}
-              // buttonTextValue={this.toggleButtonTitle}
             />
             <Cat
               name={this.state.cats[3].name}
               age={this.state.cats[3].age}
               activity={this.state.cats[3].activity}
               nameChange={this.nameChangeHandler}
-              // buttonTextValue={this.toggleButtonTitle}
             />
             <Cat
               name={this.state.cats[4].name}
               age={this.state.cats[4].age}
               activity={this.state.cats[4].activity}
               nameChange={this.nameChangeHandler}
-              // buttonTextValue={this.toggleButtonTitle}
             />
           </div>
         ) : null}
