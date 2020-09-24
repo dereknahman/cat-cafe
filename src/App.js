@@ -5,11 +5,11 @@ import Cat from "./components/Cat/index";
 class App extends Component {
   state = {
     cats: [
-      { name: "Chashu", age: 2, activity: "rolling around" },
-      { name: "Nori", age: 4, activity: "snoozing" },
-      { name: "Fat Tony", age: 5, activity: "playing tetris" },
-      { name: "Big Trish", age: 10, activity: "antifascist organising" },
-      { name: "Gerald", age: 14, activity: "licking my butt" },
+      { id: 1, name: "Chashu", age: 2, activity: "rolling around" },
+      { id: 2, name: "Nori", age: 4, activity: "snoozing" },
+      { id: 3, name: "Fat Tony", age: 5, activity: "playing tetris" },
+      { id: 4, name: "Big Trish", age: 10, activity: "antifascist organising" },
+      { id: 5, name: "Gerald", age: 14, activity: "licking my butt" },
     ],
     cafeOpen: false,
   };
@@ -19,23 +19,52 @@ class App extends Component {
     this.setState({ cafeOpen: !isOpen });
   };
 
-  nameChangeHandler = () => {
+  deleteCatHandler = (catIndex) => {
+    const cats = [...this.state.cats];
+    cats.splice(catIndex, 1);
+    this.setState({ cats: cats });
+  };
+
+  nameChangeHandler = (event, id) => {
+    const catIndex = this.state.cats.findIndex((c) => {
+      return c.id === id;
+    });
+
+    const cat = { ...this.state.cats[catIndex] };
+
+    cat.name = event.target.value;
+
+    const cats = [...this.state.cats];
+
+    cats[catIndex] = cat;
+
     this.setState({
-      cats: [
-        { name: "Manuel", age: 2, activity: "rolling around" },
-        { name: "Friendo", age: 4, activity: "snoozing" },
-        { name: "Jeremy", age: 5, activity: "playing tetris" },
-        {
-          name: "Enrique",
-          age: 10,
-          activity: "antifascist organising",
-        },
-        { name: "Lil Trish", age: 14, activity: "licking my butt" },
-      ],
+      cats: cats,
     });
   };
 
   render() {
+    let cats = null;
+
+    if (this.state.cafeOpen) {
+      cats = (
+        <div>
+          {this.state.cats.map((cat, index) => {
+            return (
+              <Cat
+                name={cat.name}
+                age={cat.age}
+                activity={cat.activity}
+                key={cat.id}
+                deleteCat={() => this.deleteCatHandler(index)}
+                changed={(event) => this.nameChangeHandler(event, cat.id)}
+              />
+            );
+          })}
+        </div>
+      );
+    }
+
     return (
       <div className="App">
         <h1>The Cat Café</h1>
@@ -48,41 +77,7 @@ class App extends Component {
         <button onClick={this.toggleCafeOpeningHandler}>
           Open The Cat Café
         </button>
-
-        {this.state.cafeOpen ? (
-          <div>
-            <Cat
-              name={this.state.cats[0].name}
-              age={this.state.cats[0].age}
-              activity={this.state.cats[0].activity}
-              nameChange={this.nameChangeHandler}
-            />
-            <Cat
-              name={this.state.cats[1].name}
-              age={this.state.cats[1].age}
-              activity={this.state.cats[1].activity}
-              nameChange={this.nameChangeHandler}
-            />
-            <Cat
-              name={this.state.cats[2].name}
-              age={this.state.cats[2].age}
-              activity={this.state.cats[2].activity}
-              nameChange={this.nameChangeHandler}
-            />
-            <Cat
-              name={this.state.cats[3].name}
-              age={this.state.cats[3].age}
-              activity={this.state.cats[3].activity}
-              nameChange={this.nameChangeHandler}
-            />
-            <Cat
-              name={this.state.cats[4].name}
-              age={this.state.cats[4].age}
-              activity={this.state.cats[4].activity}
-              nameChange={this.nameChangeHandler}
-            />
-          </div>
-        ) : null}
+        {cats}
       </div>
     );
   }
